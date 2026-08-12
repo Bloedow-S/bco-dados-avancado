@@ -1,0 +1,29 @@
+insert into produto values (1, 'Coca Cola', 'lt', 1.20);
+insert into produto values (2, 'Presunto Sadia', 'kg', 5.40);
+insert into produto values (3, 'Sabonete Palmolive', 'un', 0.65);
+insert into produto values (4, 'Shampoo Colorama', 'un', 2.60);
+insert into produto values (5, 'Cerveja Skol', 'gf', 0.99);
+
+insert into cliente values (1, 'Joao da Silva', '123456789', 'Rua Andradas, 250');
+insert into cliente values (2, 'Maria do Rosario', '26547899', 'Rua Lima e Silva, 648');
+insert into cliente values (3, 'Paulo Silveira', '8963254', 'Rua Plinio Brasil Milano, 980');
+insert into cliente values (4, 'Rosa Aparecida dos Santos', '5896332123', 'Av Ipiranga, 8960');
+
+insert into tipospagamento values (1, 'Cheque');
+insert into tipospagamento values (2, 'Dinheiro');
+insert into tipospagamento values (3, 'Crediario');
+
+insert into venda values (1, to_date('20/04/2002','DD/MM/YYYY'), 1, 1, 15.00);
+insert into venda values (2, to_date('20/04/2002','DD/MM/YYYY'), 2, 1, 7.50);
+insert into venda values (1, to_date('25/04/2002','DD/MM/YYYY'), 3, 2, 7.90);
+insert into venda values (1, to_date('30/04/2002','DD/MM/YYYY'), 3, 2, 8.50);
+
+insert into itensvenda values (1, to_date('20/04/2002','DD/MM/YYYY'), 1, 1);
+insert into itensvenda values (1, to_date('20/04/2002','DD/MM/YYYY'), 2, 2);
+insert into itensvenda values (2, to_date('20/04/2002','DD/MM/YYYY'), 1, 3);
+insert into itensvenda values (2, to_date('20/04/2002','DD/MM/YYYY'), 2, 2);
+insert into itensvenda values (2, to_date('20/04/2002','DD/MM/YYYY'), 4, 4);
+insert into itensvenda values (1, to_date('25/04/2002','DD/MM/YYYY'), 3, 9);
+insert into itensvenda values (1, to_date('30/04/2002','DD/MM/YYYY'), 3, 7);
+
+commit;
