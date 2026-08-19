@@ -1,0 +1,50 @@
+create table curso (
+			codcurso	int		not null,
+			curso		varchar(50)	not null,
+			duracao		int		not null,
+			dtcurso		date		not null,
+			primary key(codcurso));
+
+create table analista (
+			codanalista	int		not null,
+			analista	varchar(50)	not null,
+			idade		int		not null,
+			endereco	char(30)	not null,
+			primary key (codanalista));
+
+create table analistacurso (
+			codanalista	int		not null,
+			codcurso	int  	not null,
+			primary key (codanalista, codcurso),
+			foreign key (codanalista) references analista,
+			foreign key (codcurso) references curso);
+
+
+create table programador (
+			codprogramador	int		not null,
+			programador	varchar(50)	not null,
+			idade		int		not null,
+			endereco	char(30)	not null,
+			primary key(codprogramador));
+
+create table atividadesanalise (
+				codatividadeanalise	int		not null,
+				dtinicio		date	not null,
+				dttermino		date	not null,
+				descricao		varchar(100)	not null,
+				codanalista		int		not null,
+				primary key (codatividadeanalise),
+				foreign key (codanalista) references analista);
+
+create table atividadesprog (
+				codatividadeprog	int		not null,
+				dtinicio		date	not null,
+				dttermino		date	not null,
+				descricao		varchar(100)	not null,
+				codprogramador		int		not null,
+				codatividadeanalise	int		not null,
+				primary key (codatividadeprog),
+				foreign key (codprogramador) references programador,
+				foreign key (codatividadeanalise) references atividadesanalise);
+
+

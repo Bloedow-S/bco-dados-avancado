@@ -1,0 +1,41 @@
+insert into curso values (1, 'Oracle 10g', 360, to_date('01/03/2020', 'dd/mm/yyyy'));
+insert into curso values (2, 'Delphi', 300, to_date('10/05/2020', 'dd/mm/yyyy'));
+insert into curso values (3, 'Windows', 20, to_date('08/04/2020','dd/mm/yyyy'));
+insert into curso values (4, 'Linux', 35, to_date('06/06/2020', 'dd/mm/yyyy'));
+insert into curso values (5, 'Android', 120, to_date('08/04/2020','dd/mm/yyyy'));
+insert into curso values (6, 'Office', 15, to_date('10/05/2020','dd/mm/yyyy'));
+
+insert into analista values (1, 'Joao', 20, 'Av. Carlos Gomes, 200');
+insert into analista values (2, 'Joice', 24, 'Av. Independencia, 10');
+insert into analista values (3, 'Pedro', 32, 'Av. Carlos Gomes, 100');
+insert into analista values (4, 'Maria', 28, 'Dom Pedro II, 10');
+insert into analista values (5, 'Rafael', 39, 'Plínio Brasil Milano, 50');
+insert into analista values (6, 'Bruno', 23, 'Carlos Pasinato, 87');
+
+
+
+insert into analistacurso values (1,1);
+insert into analistacurso values (2,1);
+insert into analistacurso values (3,2);
+insert into analistacurso values (4,2);
+insert into analistacurso values (1,2);
+insert into analistacurso values (1,3);
+insert into analistacurso values (2,4);
+insert into analistacurso values (3,1);
+
+insert into programador values (10, 'Jeferson', 34, 'Av. Ipiranga, 10');
+insert into programador values (20, 'Andrea', 25, 'Souza Reis, 200');
+insert into programador values (30, 'Ana Paula', 23, 'Av. Carlos Gomes, 100');
+insert into programador values (40, 'Fernando', 20, 'Av. Ipiranga, 20');
+
+
+insert into atividadesanalise values (10, to_date('01/01/2020', 'dd/mm/yyyy'), to_date('10/02/2020', 'dd/mm/yyyy'), 'Processo de venda', 2);
+insert into atividadesanalise values (20, to_date('03/02/2020', 'dd/mm/yyyy'), to_date('10/02/2021', 'dd/mm/yyyy'), 'Pedido  de Compra', 2);
+insert into atividadesanalise values (30, to_date('05/07/2020', 'dd/mm/yyyy'), to_date('10/09/2021', 'dd/mm/yyyy'), 'Cadastro Fornecedor', 1);
+insert into atividadesanalise values (40, to_date('06/06/2020', 'dd/mm/yyyy'), to_date('10/07/2021', 'dd/mm/yyyy'), 'Cadastro Produto', 4);
+
+insert into atividadesprog values (100, to_date('05/01/2020', 'dd/mm/yyyy'), to_date('07/01/2020', 'dd/mm/yyyy'), 'Tela 105', 10, 10);
+insert into atividadesprog values (101, to_date('05/02/2020', 'dd/mm/yyyy'), to_date('10/02/2020', 'dd/mm/yyyy'), 'Relatorio 12', 10, 20);
+insert into atividadesprog values (102, to_date('05/02/2020', 'dd/mm/yyyy'), to_date('12/02/2020', 'dd/mm/yyyy'), 'Procedure 75', 20, 20);
+insert into atividadesprog values (103, to_date('06/07/2020', 'dd/mm/yyyy'), to_date('10/07/2020', 'dd/mm/yyyy'), 'Tela 165', 10, 30);
+insert into atividadesprog values (104, to_date('09/07/2020', 'dd/mm/yyyy'), to_date('12/07/2020', 'dd/mm/yyyy'), 'Relatorio 16', 30, 30);
