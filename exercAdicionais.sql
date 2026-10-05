@@ -68,19 +68,6 @@ SELECT Soma_Horas(
 ) from dual;
 
 /*
-Resumo da estrutura das functions:
-
-CREATE OR REPLACE FUNCTION nome_f( param IN curso.nome%TYPE )
-RETURN NUMBER
-IS
-    var_pontoevir;
-BEGIN
-    SELECT INTO FROM;
-    RETURN;
-END;
-*/
-
-/*
 4 - Criar um objeto Analista_Ult_Ativ que recebe como parâmetro o nome do analista e retorna a
 última data de término de atividade realizada.
 */
@@ -126,23 +113,6 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('última data: ' || datafim);
 END;
 /
-/*
-CREATE OR REPLACE PROCEDURE nome( p_buscaNoWhere IN tabela.coluna%TYPE, p_retornoDaProc OUT tabela.coluna%TYPE)
-IS
-BEGIN
-    SELECT dado
-    FROM tabela t1
-    JOIN tabela2 t2 ON t2.cod = t1.cod
-    WHERE t2.colunadodado = p_buscaNoWhere
-END;
-/
-DECLARE
-    p_retornodap
-BEGIN
-    nome('dadoqualquer', p_retornodap
-     DBMS_OUTPUT.PUT_LINE('retorno: ' || p_retornodap)
-END;
-*/
 
 /*
 6 - Criar um objeto Dados_Analista que retorna o endereço e a idade do analista mais velho.
@@ -231,8 +201,14 @@ data de início e data de término da atividade de programação (Tipo =Programa
 Inserir na tabela de acumatividades.
 */
 
-DECLARE
-
+DECLARE CREATE TABLE acumatividades (
+    tipo varchar(13) not null,
+    codatividade int not null,
+    nome varchar(50) not null,
+    dtinicio date not null,
+    dttermino date not null,
+   CONSTRAINT pk_acumatividades PRIMARY KEY (tipo,codatividade)
+);
     CURSOR c IS
         SELECT 
             atv.Codatividadeanalise AS cod,
@@ -252,18 +228,33 @@ DECLARE
             p.programador AS nome,
             'Programação' AS tipo
         FROM atividadesprog atv
-        JOIN programador p ON p.codprogramador = atv.codprogramador
+        JOIN programador p ON p.codprogramador = atv.codprogramador;
 
-
-
-CREATE TABLE acumatividades (
-    tipo varchar(13) not null,
-    codatividade int not null,
-    nome varchar(50) not null,
-    dtinicio date not null,
-    dttermino date not null,
-   CONSTRAINT pk_acumatividades PRIMARY KEY (tipo,codatividade)
-)
+    v_relacao c%ROWTYPE;
+BEGIN
+    OPEN c;
+    LOOP
+        FETCH c INTO v_relacao;
+        EXIT WHEN c%NOTFOUND;
+    
+        INSERT INTO acumatividades (
+            tipo,
+            codatividade,
+            nome,
+            dtinicio,
+            dttermino
+        )
+        VALUES (
+            v_relacao.tipo,
+            v_relacao.cod,
+            v_relacao.nome,
+            v_relacao.dtinicio,
+            v_relacao.dttermino
+        );
+    END LOOP;
+    CLOSE c;
+END;
+/
 
 /*
 10 – Criar uma tabela de qtdcursos com a seguinte estrutura
@@ -280,3 +271,40 @@ Qtd curso % Aumento
 2 7.5
 maior ou igual a 3 10
 */
+
+DECLARE
+    CURSOR c IS
+        SELECT
+            a.codanalista,
+            a.analista,
+            COUNT(ac.codcurso) AS qtd
+        FROM analista a
+        LEFT JOIN analistacurso ac ON ac.codanalista = a.codanalista
+        GROUP BY a.codanalista, a.analista;
+
+    v_analista c%ROWTYPE;
+    v_aumento  qtdcursos.aumento%TYPE;
+BEGIN
+    OPEN c;
+    LOOP
+        FETCH c INTO v_analista;
+        EXIT WHEN c%NOTFOUND;
+
+        IF v_analista.qtd = 0 THEN
+            v_aumento := 2.5;
+        ELSIF v_analista.qtd = 1 THEN
+            v_aumento := 5;
+        ELSIF v_analista.qtd = 2 THEN
+            v_aumento := 7.5;
+        ELSE
+            v_aumento := 10;
+        END IF;
+
+        INSERT INTO qtdcursos (codanalista, analista, qtdcursos, aumento)
+        VALUES (v_analista.codanalista, v_analista.analista, v_analista.qtd, v_aumento);
+    END LOOP;
+    CLOSE c;
+
+    COMMIT;
+END;
+/
